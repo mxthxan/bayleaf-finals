@@ -1,235 +1,131 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 import { Link } from 'react-scroll';
-import { Image, X, ChevronDown } from 'lucide-react';
+import { 
+  Utensils, 
+  Phone, 
+  Mail, 
+  MapPin, 
+  Clock, 
+  Facebook, 
+  Instagram, 
+  Twitter 
+} from 'lucide-react';
 
-interface GalleryItem {
-  id: string;
-  title: string;
-  imageUrl: string;
-  category: string;
-  description: string;
-}
-
-const galleryData: GalleryItem[] = [
-  {
-    id: "1",
-    title: "Traditional Masala Dosa",
-    imageUrl: "https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg",
-    category: "food",
-    description: "Our signature crispy dosa served with authentic sambar and chutneys"
-  },
-  {
-    id: "2",
-    title: "Main Dining Area",
-    imageUrl: "https://images.pexels.com/photos/6270541/pexels-photo-6270541.jpeg",
-    category: "restaurant",
-    description: "Elegant dining space with traditional South Indian elements"
-  },
-  {
-    id: "3",
-    title: "Chef's Special Curry",
-    imageUrl: "https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg",
-    category: "food",
-    description: "Aromatic curry prepared with hand-ground spices"
-  },
-  {
-    id: "4",
-    title: "Cultural Events",
-    imageUrl: "https://images.pexels.com/photos/7363671/pexels-photo-7363671.jpeg",
-    category: "events",
-    description: "Regular cultural performances and traditional music"
-  },
-  {
-    id: "5",
-    title: "South Indian Thali",
-    imageUrl: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg",
-    category: "food",
-    description: "Complete meal with variety of curries, rice, and accompaniments"
-  },
-  {
-    id: "6",
-    title: "Private Dining",
-    imageUrl: "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg",
-    category: "restaurant",
-    description: "Intimate dining space for special occasions"
-  }
-];
-
-const GallerySection: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
-  const [filter, setFilter] = useState('all');
-  
-  const textRef = useRef<HTMLDivElement>(null);
-  const galleryRef = useRef<HTMLDivElement>(null);
-
-  const filteredImages = filter === 'all' 
-    ? galleryData 
-    : galleryData.filter(item => item.category === filter);
-
-  const categories = ['all', 'food', 'restaurant', 'events'];
-
+const Footer: React.FC = () => {
   return (
-    <section id="gallery" className="relative py-24 bg-cream-50">
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div ref={textRef} className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center justify-center mb-4"
-          >
-            <Image className="mr-2 text-spice-600" size={20} />
-            <span className="uppercase tracking-widest text-sm text-spice-600">Our Visual Journey</span>
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-          >
-            Our Gallery
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed"
-          >
-            Take a visual journey through our restaurant, cuisine, and cultural events
-          </motion.p>
-        </div>
-
-        {/* Filter Buttons */}
-        <motion.div 
-          className="flex justify-center flex-wrap gap-4 my-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          {categories.map((category, index) => (
-            <motion.button
-              key={category}
-              onClick={() => setFilter(category)}
-              className={`px-6 py-2 rounded-full text-sm font-medium capitalize transition-all ${
-                filter === category 
-                  ? 'bg-spice-600 text-white shadow' 
-                  : 'bg-cream-200 text-gray-700 hover:bg-spice-200'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-            >
-              {category}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Gallery Grid */}
-        <motion.div 
-          ref={galleryRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          layout
-        >
-          <AnimatePresence>
-            {filteredImages.map((item, index) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                onClick={() => setSelectedImage(item)}
-                className="cursor-pointer group"
-              >
-                <div className="relative overflow-hidden rounded-lg shadow-md">
-                  <motion.img 
-                    src={item.imageUrl} 
-                    alt={item.title}
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="text-center p-4">
-                      <h3 className="text-white font-display text-xl mb-2">{item.title}</h3>
-                      <p className="text-white/80 text-sm">{item.description}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Scroll Down Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center z-10">
-          <div className="scroll-indicator">
-            <div className="scroll-indicator-progress" />
+    <footer className="bg-gray-900 text-white pt-16 pb-8">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Restaurant Info */}
+          <div>
+            <div className="flex items-center mb-4">
+              <div className="bg-white p-2 rounded-full mr-2">
+                <Utensils size={20} className="text-spice-500" />
+              </div>
+              <span className="font-display text-xl font-bold">Madras Palace</span>
+            </div>
+            <p className="text-gray-400 mb-4">
+              Authentic South Indian cuisine in the heart of Germany. 
+              Experience the rich flavors and traditions of South India.
+            </p>
+            <div className="flex space-x-4">
+              <a href="#" className="text-white hover:text-spice-400 transition-colors">
+                <Facebook size={20} />
+              </a>
+              <a href="#" className="text-white hover:text-spice-400 transition-colors">
+                <Instagram size={20} />
+              </a>
+              <a href="#" className="text-white hover:text-spice-400 transition-colors">
+                <Twitter size={20} />
+              </a>
+            </div>
           </div>
-          <Link
-            to="booking"
-            spy={true}
-            smooth={true}
-            offset={-80}
-            duration={800}
-            className="text-gray-600 flex flex-col items-center cursor-pointer hover:text-spice-600 transition-colors"
-          >
-            <span className="text-sm uppercase tracking-wider mb-2">Book Your Experience</span>
-            <ChevronDown size={20} />
-          </Link>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="font-display text-lg font-bold mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {['home', 'about', 'menu', 'gallery', 'contact'].map((item) => (
+                <li key={item}>
+                  <Link
+                    to={item}
+                    spy={true}
+                    smooth={true}
+                    offset={-80}
+                    duration={800}
+                    className="text-gray-400 hover:text-spice-400 transition-colors cursor-pointer"
+                  >
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="font-display text-lg font-bold mb-4">Contact Us</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start">
+                <MapPin size={18} className="text-spice-400 mr-2 mt-1 flex-shrink-0" />
+                <span className="text-gray-400">
+                  Wiesenhüttenplatz 25, 60329 Frankfurt am Main, Germany
+                </span>
+              </li>
+              <li className="flex items-center">
+                <Phone size={18} className="text-spice-400 mr-2 flex-shrink-0" />
+                <span className="text-gray-400">+49 (0) 69 123 456 78</span>
+              </li>
+              <li className="flex items-center">
+                <Mail size={18} className="text-spice-400 mr-2 flex-shrink-0" />
+                <span className="text-gray-400">info@madraspalace.de</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Opening Hours */}
+          <div>
+            <h3 className="font-display text-lg font-bold mb-4">Opening Hours</h3>
+            <ul className="space-y-2">
+              <li className="flex items-start">
+                <Clock size={18} className="text-spice-400 mr-2 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-gray-400">Monday - Friday</p>
+                  <p className="text-white">12:00 - 22:00</p>
+                </div>
+              </li>
+              <li className="flex items-start">
+                <Clock size={18} className="text-spice-400 mr-2 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="text-gray-400">Saturday - Sunday</p>
+                  <p className="text-white">12:00 - 23:00</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Lightbox Modal */}
-        <AnimatePresence>
-          {selectedImage && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
-              onClick={() => setSelectedImage(null)}
-            >
-              <motion.div
-                initial={{ scale: 0.8, y: 50 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.8, y: 50 }}
-                className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button 
-                  className="absolute top-4 right-4 text-white bg-black bg-opacity-50 p-2 rounded-full hover:bg-opacity-70 transition-all"
-                  onClick={() => setSelectedImage(null)}
-                >
-                  <X size={24} />
-                </button>
-                <img 
-                  src={selectedImage.imageUrl} 
-                  alt={selectedImage.title}
-                  className="w-full max-h-[70vh] object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-2xl font-display mb-2">{selectedImage.title}</h3>
-                  <p className="text-gray-600">{selectedImage.description}</p>
-                  <span className="text-sm text-gray-500 mt-2 block capitalize">
-                    Category: {selectedImage.category}
-                  </span>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="border-t border-gray-800 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm mb-4 md:mb-0">
+              &copy; {new Date().getFullYear()} Madras Palace. All rights reserved.
+            </p>
+            <div className="flex space-x-6">
+              <a href="#" className="text-gray-500 hover:text-spice-400 text-sm transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-gray-500 hover:text-spice-400 text-sm transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="text-gray-500 hover:text-spice-400 text-sm transition-colors">
+                Sitemap
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </footer>
   );
 };
 
-export default GallerySection;
+export default Footer;
