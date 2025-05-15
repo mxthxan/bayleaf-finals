@@ -1,18 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 import { ArrowDown, Utensils, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../context/translations';   
 
 const HeroSection: React.FC = () => {
   const textRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
-  const [language, setLanguage] = useState<'en' | 'de'>('en');
-
-  const toggleLanguage = (lang: 'en' | 'de') => {
-    setLanguage(lang);
-  };
+  const { language } = useLanguage(); 
 
   useEffect(() => {
     if (quoteRef.current) {
@@ -59,37 +57,19 @@ const HeroSection: React.FC = () => {
           >
             <Utensils className="mr-2" size={20} />
             <span className="uppercase tracking-widest text-sm">
-              {language === 'en' ? 'Authentic Indian Cuisine' : 'Authentische Indische Küche'}
+              {translations.hero.tagline[language]}
             </span>
           </motion.div>
 
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
-            {language === 'en' ? 'Bayleaf Restaurant' : 'Bayleaf Restaurant'}
+            {translations.hero.title[language]}
           </h1>
 
           <p className="text-lg md:text-xl mb-10 leading-relaxed max-w-lg">
-            {language === 'en' 
-              ? 'Experience the authentic flavors of India with our traditional recipes and premium spices, bringing the essence of Indian culinary art to your table.'
-              : 'Erleben Sie die authentischen Aromen Indiens mit unseren traditionellen Rezepten und erstklassigen Gewürzen, die das Wesen der indischen Kochkunst auf Ihren Tisch bringen.'}
+            {translations.hero.description[language]}
           </p>
 
           <div className="flex flex-wrap items-center gap-4 mb-16">
-            {/* Language toggle buttons - now before first button */}
-            <div className="flex space-x-2 items-center mr-4">
-              <button
-                onClick={() => toggleLanguage('en')}
-                className={`px-3 py-1 rounded-md transition-colors ${language === 'en' ? 'bg-white text-spice-500 font-bold' : 'bg-transparent text-white border border-white'}`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => toggleLanguage('de')}
-                className={`px-3 py-1 rounded-md transition-colors ${language === 'de' ? 'bg-white text-spice-500 font-bold' : 'bg-transparent text-white border border-white'}`}
-              >
-                DE
-              </button>
-            </div>
-            
             <Link
               to="menu"
               spy={true}
@@ -98,7 +78,7 @@ const HeroSection: React.FC = () => {
               duration={0}
               className="btn-primary"
             >
-              {language === 'en' ? 'Explore Menu' : 'Menü Entdecken'}
+              {translations.hero.exploreMenu[language]}
             </Link>
             
             <Link
@@ -109,7 +89,7 @@ const HeroSection: React.FC = () => {
               duration={0}
               className="bg-white text-spice-500 py-2 px-6 rounded-md font-medium hover:bg-opacity-90 transition-all"
             >
-              {language === 'en' ? 'Book a Table' : 'Tisch Reservieren'}
+              {translations.hero.bookTable[language]}
             </Link>
           </div>
 
@@ -121,9 +101,7 @@ const HeroSection: React.FC = () => {
               <Quote className="text-spice-400 mr-3 flex-shrink-0 mt-1" size={28} />
               <div>
                 <p className="text-white font-medium italic text-lg md:text-xl mb-3">
-                  {language === 'en' 
-                    ? '"Food is not just eating energy. It\'s an experience."'
-                    : '"Essen ist nicht nur Energie aufnehmen. Es ist ein Erlebnis."'}
+                  {translations.hero.quote[language]}
                 </p>
                 <p className="text-white/100 text-sm text-right">
                   - Chef Ranveer
@@ -145,7 +123,7 @@ const HeroSection: React.FC = () => {
           className="flex flex-col items-center cursor-pointer hover:text-white transition-colors text-white"
         >
           <span className="text-sm uppercase tracking-wider mb-2">
-            {language === 'en' ? 'Scroll Down' : 'Nach Unten Scrollen'}
+            {translations.hero.scrollDown[language]}
           </span>
           <ArrowDown size={20} className="animate-bounce" />
         </Link>

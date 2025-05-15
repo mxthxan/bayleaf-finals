@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
             spy={true}
             smooth={true}
             offset={-80}
-            duration={800}
+            duration={100}
             className="flex items-center cursor-pointer"
           >
             <div className="bg-white p-2 rounded-full mr-2">
@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
                 spy={true}
                 smooth={true}
                 offset={-80}
-                duration={800}
+                duration={100} // <-- set to 0 for no delay
                 className={`font-medium cursor-pointer hover:text-spice-500 transition-colors ${
                   scrolled ? 'text-gray-800' : 'text-white'
                 }`}
@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
                   spy={true}
                   smooth={true}
                   offset={-80}
-                  duration={800}
+                  duration={0} // <-- set to 0 for no delay
                   className="font-medium text-gray-800 hover:text-spice-500 transition-colors py-2"
                   onClick={closeMenu}
                 >

@@ -1,17 +1,11 @@
 export const translations = {
+    
   common: {
-    close: {
-      en: 'Close',
-      de: 'Schließen'
-    },
-    continue: {
-      en: 'Continue',
-      de: 'Weiter'
-    },
-    viewMore: {
-      en: 'View More',
-      de: 'Mehr Anzeigen'
-    }
+    close: { en: "Close", de: "Schließen" },
+    continue: { en: "Continue", de: "Weiter" },
+    viewMore: { en: "View More", de: "Mehr anzeigen" },
+    viewLess: { en: "View Less", de: "Weniger anzeigen" },
+    
   },
   navbar: {
     home: {

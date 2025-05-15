@@ -46,13 +46,21 @@ const MenuSection: React.FC = () => {
   const categories = ["all", "starters", "mains", "desserts", "drinks"];
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
-  
+  const [expandedItems, setExpandedItems] = useState<{ [key: string]: boolean }>({});
+
   const textRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const filteredMenu = activeCategory === "all"
     ? menuData
     : menuData.filter(item => item.category === activeCategory);
+
+  const handleToggleExpand = (id: string) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
   return (
     <section id="menu" className="relative py-24 bg-cream-50">
@@ -117,13 +125,13 @@ const MenuSection: React.FC = () => {
             {filteredMenu.map((item, index) => (
               <motion.div
                 key={item.id}
+                id={`menu-card-${item.id}`}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                onClick={() => setSelectedItem(item)}
-                className="bg-white rounded-2xl overflow-hidden shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                className="bg-white rounded-2xl overflow-hidden shadow-md transition-shadow duration-300"
               >
                 <div className="relative h-56 w-full overflow-hidden">
                   <img
@@ -147,8 +155,10 @@ const MenuSection: React.FC = () => {
                     <h3 className="font-display text-lg font-semibold">{item.name}</h3>
                     <span className="text-spice-600 font-medium">€{item.price.toFixed(2)}</span>
                   </div>
-                  <p className="text-gray-600 text-sm mb-2">{item.description}</p>
-                  <div className="flex items-center gap-2">
+                  <p className="text-gray-600 text-sm mb-2">
+                    {expandedItems[item.id] ? item.description : item.description.slice(0, 60) + (item.description.length > 60 ? "..." : "")}
+                  </p>
+                  <div className="flex items-center gap-2 mb-2">
                     <span className="text-xs text-gray-500">
                       {translations.menu.labels.spiceLevel[language]}:
                     </span>
@@ -161,6 +171,23 @@ const MenuSection: React.FC = () => {
                       />
                     ))}
                   </div>
+                  <button
+                    className="text-xs text-spice-600 underline focus:outline-none"
+                    onClick={() => {
+                      handleToggleExpand(item.id);
+                      if (!expandedItems[item.id]) {
+                        // Scroll to the expanded card after state update
+                        setTimeout(() => {
+                          const card = document.getElementById(`menu-card-${item.id}`);
+                          card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 100);
+                      }
+                    }}
+                  >
+                    {expandedItems[item.id]
+                      ? (translations.common.viewLess?.[language] || "View Less")
+                      : (translations.common.viewMore?.[language] || "View More")}
+                  </button>
                 </div>
               </motion.div>
             ))}

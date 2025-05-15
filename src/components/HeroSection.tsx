@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 import { ArrowDown, Utensils, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -19,28 +19,22 @@ const HeroSection: React.FC = () => {
         y: 30,
         duration: 1,
         delay: 1.2,
-        ease: "power3.out"
+        ease: 'power3.out',
       });
     }
   }, []);
 
   return (
-    <section 
-      id="home" 
-      className="relative min-h-screen w-full"
-    >
-      <div 
-        ref={bgRef}
-        className="absolute top-0 left-0 w-full h-full overflow-hidden z-0"
-      >
+    <section id="home" className="relative min-h-screen w-full">
+      <div ref={bgRef} className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="absolute w-full h-full object-cover md:object-center object-[25%] min-h-screen min-w-full"
+          className="absolute w-full h-full object-cover object-[100%] md:object-center min-h-screen min-w-full"
         >
-          <source src="src\assests\desktop.MP4" type="video/mp4" />
+          <source src="src/assets/your-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-black/10 z-0"></div>
@@ -48,7 +42,7 @@ const HeroSection: React.FC = () => {
 
       <div className="absolute inset-0 z-10">
         <div className="absolute top-1/4 left-16 md:left-24 lg:left-32 text-white">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-spice-400 flex items-center mb-6"
@@ -78,7 +72,7 @@ const HeroSection: React.FC = () => {
             >
               {translations.hero.exploreMenu[language]}
             </Link>
-            
+
             <Link
               to="contact"
               spy={true}
@@ -91,7 +85,7 @@ const HeroSection: React.FC = () => {
             </Link>
           </div>
 
-          <div 
+          <div
             ref={quoteRef}
             className="bg-white/20 p-6 rounded-lg border border-white/30 shadow-lg max-w-md"
           >
@@ -101,9 +95,7 @@ const HeroSection: React.FC = () => {
                 <p className="text-white font-medium italic text-lg md:text-xl mb-3">
                   {translations.hero.quote[language]}
                 </p>
-                <p className="text-white/100 text-sm text-right">
-                  - Chef Ranveer
-                </p>
+                <p className="text-white/100 text-sm text-right">- Chef Ranveer</p>
               </div>
             </div>
           </div>
