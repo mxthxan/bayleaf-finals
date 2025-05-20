@@ -20,10 +20,6 @@ const Navbar: React.FC = () => {
     { id: 'contact', label: translations.navbar.contact[language] },
   ];
 
-  const handleLanguageToggle = () => {
-    toggleLanguage(language === 'en' ? 'de' : 'en');
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -72,7 +68,7 @@ const Navbar: React.FC = () => {
                 spy={true}
                 smooth={true}
                 offset={-80}
-                duration={100} // <-- set to 0 for no delay
+                duration={100}
                 className={`font-medium cursor-pointer hover:text-spice-500 transition-colors ${
                   scrolled ? 'text-gray-800' : 'text-white'
                 }`}
@@ -81,16 +77,30 @@ const Navbar: React.FC = () => {
               </Link>
             ))}
             
-            {/* Single Language Toggle Button */}
-            <button
-              onClick={handleLanguageToggle}
-              className={`flex items-center space-x-2 px-3 py-1 rounded-md transition-colors ${
-                scrolled ? 'text-gray-800' : 'text-white'
-              } hover:text-spice-500`}
-            >
-              <Globe size={18} />
-              <span className="font-medium">{language.toUpperCase()}</span>
-            </button>
+            {/* Separate Language Buttons */}
+            <div className="flex space-x-2">
+              <button
+                onClick={() => toggleLanguage('en')}
+                className={`flex items-center px-3 py-1 rounded-md transition-colors ${
+                  language === 'en' 
+                    ? 'bg-spice-500 text-white' 
+                    : scrolled ? 'text-gray-800' : 'text-white'
+                } hover:text-spice-500 ${language !== 'en' && 'hover:bg-gray-100'}`}
+              >
+                <span className="font-medium">EN</span>
+              </button>
+              
+              <button
+                onClick={() => toggleLanguage('de')}
+                className={`flex items-center px-3 py-1 rounded-md transition-colors ${
+                  language === 'de' 
+                    ? 'bg-spice-500 text-white' 
+                    : scrolled ? 'text-gray-800' : 'text-white'
+                } hover:text-spice-500 ${language !== 'de' && 'hover:bg-gray-100'}`}
+              >
+                <span className="font-medium">DE</span>
+              </button>
+            </div>
             
             <a 
               href="#booking" 
@@ -125,7 +135,7 @@ const Navbar: React.FC = () => {
                   spy={true}
                   smooth={true}
                   offset={-80}
-                  duration={0} // <-- set to 0 for no delay
+                  duration={0}
                   className="font-medium text-gray-800 hover:text-spice-500 transition-colors py-2"
                   onClick={closeMenu}
                 >
@@ -133,14 +143,24 @@ const Navbar: React.FC = () => {
                 </Link>
               ))}
               
-              {/* Language Toggle for Mobile */}
-              <div className="flex items-center space-x-2 py-2">
+              {/* Separate Language Buttons for Mobile */}
+              <div className="flex space-x-2 py-2">
                 <button
-                  onClick={handleLanguageToggle}
-                  className="flex items-center space-x-2 px-3 py-1 rounded-md text-gray-800 hover:text-spice-500 transition-colors"
+                  onClick={() => toggleLanguage('en')}
+                  className={`flex items-center px-3 py-1 rounded-md ${
+                    language === 'en' ? 'bg-spice-500 text-white' : 'text-gray-800'
+                  } hover:text-spice-500 ${language !== 'en' && 'hover:bg-gray-100'} transition-colors`}
                 >
-                  <Globe size={18} />
-                  <span className="font-medium">{language.toUpperCase()}</span>
+                  <span className="font-medium">EN</span>
+                </button>
+                
+                <button
+                  onClick={() => toggleLanguage('de')}
+                  className={`flex items-center px-3 py-1 rounded-md ${
+                    language === 'de' ? 'bg-spice-500 text-white' : 'text-gray-800'
+                  } hover:text-spice-500 ${language !== 'de' && 'hover:bg-gray-100'} transition-colors`}
+                >
+                  <span className="font-medium">DE</span>
                 </button>
               </div>
               

@@ -1,35 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-scroll';
 import { ArrowDown, Utensils, Quote } from 'lucide-react';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
 import { useLanguage } from '../../context/LanguageContext';
-import { translations } from '../../context/translations';   
+import { translations } from '../../context/translations';
 
 const HeroSection: React.FC = () => {
-  const textRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
-  const { language } = useLanguage(); 
-
-  useEffect(() => {
-    if (quoteRef.current) {
-      gsap.from(quoteRef.current, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        delay: 1.2,
-        ease: "power3.out"
-      });
-    }
-  }, []);
+  const { language } = useLanguage();
 
   return (
     <section 
       id="home" 
       className="relative min-h-screen w-full"
     >
-      {/* Background Video */}
+      {/* Background Video - No overlay or dulling */}
       <div 
         ref={bgRef}
         className="absolute top-0 left-0 w-full h-full overflow-hidden z-0"
@@ -39,27 +24,24 @@ const HeroSection: React.FC = () => {
           muted
           loop
           playsInline
-          className="absolute w-full h-full object-cover md:object-center object-[25%] min-h-screen min-w-full"
+          className="absolute w-full h-full object-cover object-right md:object-center min-h-screen min-w-full"
         >
-          <source src="src\assests\desktop.MP4" type="video/mp4" />
+          <source src="src/assests/desktop.MP4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-black/10 z-0"></div>
+        {/* ⛔️ Removed the black overlay */}
       </div>
 
-      {/* Foreground Content - Text placed freely */}
+      {/* Foreground Content */}
       <div className="absolute inset-0 z-10">
         <div className="absolute top-1/4 left-16 md:left-24 lg:left-32 text-white">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-spice-400 flex items-center mb-6"
-          >
+          {/* Removed motion.div with fade-in */}
+          <div className="text-spice-400 flex items-center mb-6">
             <Utensils className="mr-2" size={20} />
             <span className="uppercase tracking-widest text-sm">
               {translations.hero.tagline[language]}
             </span>
-          </motion.div>
+          </div>
 
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
             {translations.hero.title[language]}
