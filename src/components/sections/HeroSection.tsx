@@ -26,7 +26,7 @@ const HeroSection: React.FC = () => {
           playsInline
           className="absolute w-full h-full object-cover object-right md:object-center min-h-screen min-w-full"
         >
-          <source src="src/assests/desktop.MP4" type="video/mp4" />
+          <source src="https://ik.imagekit.io/jacw2jgvs/bayleaf%20(1).mp4?updatedAt=1746633034740" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         {/* ⛔️ Removed the black overlay */}
