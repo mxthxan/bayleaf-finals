@@ -140,7 +140,7 @@ const HeroSection: React.FC = () => {
 
       {/* Scroll Down Indicator */}
       {/* Invisible button as a colored point, moved slightly to the right */}
-      <div className="absolute bottom-28 left-8 md:left-16 lg:left-24 z-30 flex flex-col items-start w-max">
+      <div className="absolute bottom-5 left-8 md:left-16 lg:left-24 z-30 flex flex-col items-start w-max">
         <a
           href="https://en.wikipedia.org/wiki/Thiruvalluvar_Statue"
           target="_blank"
@@ -150,7 +150,7 @@ const HeroSection: React.FC = () => {
           aria-label="Learn more about Thiruvalluvar Statue"
         >
           {/* Colored circular point */}
-          <span className="absolute inset-0 w-6 h-6 m-auto rounded-full bg-yellow-400 shadow-lg cursor-pointer"></span>
+          <span className="absolute inset-0 w-6 h-6 m-auto rounded-full bg-yellow-800 shadow-lg cursor-pointer"></span>
           {/* Tooltip visible only for 10 seconds after load */}
           {showInvisibleTooltip && (
             <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-3 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30">
