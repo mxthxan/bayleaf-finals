@@ -9,6 +9,7 @@ const LoadingScreen: React.FC = () => {
   const textRef = useRef<HTMLDivElement>(null);
   const bgLeftRef = useRef<HTMLDivElement>(null);
   const bgRightRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -64,7 +65,12 @@ const LoadingScreen: React.FC = () => {
           scaleX: 0,
           duration: 0.8,
           ease: 'power3.inOut'
-        }, '-=0.8');
+        }, '-=0.8')
+        .to(backdropRef.current, {
+          opacity: 0,
+          duration: 0.2,
+          ease: 'power2.out'
+        }, '-=0.2');
     }, 1500);
 
     return () => clearTimeout(timer);
@@ -74,9 +80,28 @@ const LoadingScreen: React.FC = () => {
 
   return (
     <>
-      <div ref={curtainLeftRef} className="curtain curtain-left"></div>
-      <div ref={curtainRightRef} className="curtain curtain-right"></div>
-      <div className="curtain-content">
+      {/* Solid backdrop to prevent peeking */}
+      <div 
+        ref={backdropRef}
+        className="fixed inset-0 bg-white z-[9999]"
+      />
+      
+      {/* Left curtain */}
+      <div 
+        ref={curtainLeftRef} 
+        className="fixed top-0 left-0 h-screen w-1/2 bg-white z-[10000]"
+        style={{ transformOrigin: 'left center' }}
+      />
+      
+      {/* Right curtain */}
+      <div 
+        ref={curtainRightRef} 
+        className="fixed top-0 right-0 h-screen w-1/2 bg-white z-[10000]"
+        style={{ transformOrigin: 'right center' }}
+      />
+      
+      {/* Curtain content */}
+      <div className="fixed inset-0 flex items-center justify-center z-[10001]">
         <div className="relative flex flex-col items-center justify-center w-full h-full">
           
           {/* Background Left */}

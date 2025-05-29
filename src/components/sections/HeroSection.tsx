@@ -38,14 +38,14 @@ const HeroSection: React.FC = () => {
         className="absolute top-0 left-0 w-full h-full overflow-hidden z-0"
         style={{ minHeight: '100vh' }}
       >
-        {/* Rotating Plate Background - Half Visible on Right */}
-        <div className="fixed top-1/2 right-0 -translate-y-1/2 w-[150vw] sm:w-[130vw] md:w-[110vw] lg:w-[90vw] h-screen overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 -right-[75%] sm:-right-[65%] md:-right-[55%] lg:-right-[45%] w-[200vw] h-[200vw] sm:w-[180vw] sm:h-[180vw] md:w-[150vw] md:h-[150vw] lg:w-[120vw] lg:h-[120vw] flex justify-center items-center" style={{ 
+        {/* Rotating Plate Background - Half visible on right */}
+        <div className="fixed top-1/2 right-0 -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
+          <div className="absolute top-1/2 -right-1/2 w-[120vw] h-[120vw] sm:w-[100vw] sm:h-[100vw] flex justify-center items-center" style={{ 
             animation: 'rotate 20s linear infinite',
             transformOrigin: 'center'
           }}>
             <img 
-              src="https://ik.imagekit.io/jacw2jgvs/Untitled%20design.svg" 
+              src="https://ik.imagekit.io/jacw2jgvs/Untitled%20design.png" 
               alt="Rotating plate background"
               className="w-full h-full object-contain"
             />
