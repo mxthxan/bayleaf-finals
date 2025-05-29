@@ -9,6 +9,7 @@ import GallerySection from './components/sections/GallerySection';
 import ContactSection from './components/sections/ContactSection';
 import Footer from './components/Footer';
 import { LanguageProvider } from './context/LanguageContext';
+import ScrollHideContactHeader from './components/sections/ScrollHideContactHeader';
 
 function App() {
   const [initialized, setInitialized] = useState(false);
@@ -34,6 +35,7 @@ function App() {
         <LoadingScreen />
         
         {/* Main Content */}
+        <ScrollHideContactHeader />
         <Navbar />
         
         <main>

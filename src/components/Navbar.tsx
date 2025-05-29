@@ -7,6 +7,7 @@ import { translations } from '../context/translations';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [contactHeaderVisible, setContactHeaderVisible] = useState(true);
   const { language, toggleLanguage } = useLanguage();
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -23,22 +24,55 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
+      
+      // Update scrolled state
       if (offset > 80) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
+      
+      // Update contact header visibility state (only on large screens)
+      const isLargeScreen = window.innerWidth >= 1024;
+      if (isLargeScreen) {
+        if (offset > 100) {
+          setContactHeaderVisible(false);
+        } else {
+          setContactHeaderVisible(true);
+        }
+      } else {
+        setContactHeaderVisible(false);
+      }
+    };
+
+    const handleResize = () => {
+      // Update contact header visibility on resize
+      const isLargeScreen = window.innerWidth >= 1024;
+      if (!isLargeScreen) {
+        setContactHeaderVisible(false);
+      } else if (window.scrollY <= 100) {
+        setContactHeaderVisible(true);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    // Initial check
+    handleScroll();
+    handleResize();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed left-0 w-full z-50 transition-all duration-300 ${
         scrolled ? 'nav-scrolled py-2' : 'py-4 bg-transparent'
-      }`}
+      } ${contactHeaderVisible ? 'lg:top-[40px]' : 'lg:top-0'} top-0`}
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
@@ -47,7 +81,7 @@ const Navbar: React.FC = () => {
             to="home"
             spy={true}
             smooth={true}
-            offset={-80}
+            offset={contactHeaderVisible ? -120 : -80}
             duration={100}
             className="flex items-center cursor-pointer"
           >
@@ -67,7 +101,7 @@ const Navbar: React.FC = () => {
                 to={item.id}
                 spy={true}
                 smooth={true}
-                offset={-80}
+                offset={contactHeaderVisible ? -120 : -80}
                 duration={100}
                 className={`font-medium cursor-pointer hover:text-spice-500 transition-colors ${
                   scrolled ? 'text-gray-800' : 'text-white'

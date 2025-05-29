@@ -39,7 +39,9 @@ const HeroSection: React.FC = () => {
       >
         {/* Changed from 'fixed' to 'absolute' to bind it to the hero section */}
         <div className="absolute top-1/2 right-[-20px] -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 -right-1/8 w-[160vw] h-[160vw] xs:w-[180vw] xs:h-[180vw] sm:w-[140vw] sm:h-[140vw] flex justify-center items-center hero-rotate">
+          <div className="absolute top-1/2 -right-[300px] w-[70vw] h-[70vw] xs:w-[600vw] xs:h-[600vw] sm:w-[140vw] sm:h-[140vw] md:w-[100vw] md:h-[100vw] lg:w-[80vw] lg:h-[80vw] xl:w-[60vw] xl:h-[60vw] flex justify-center items-center hero-rotate">
+
+
             <img 
               src="https://ik.imagekit.io/jacw2jgvs/Untitled%20design.png" 
               alt="Rotating plate background"
