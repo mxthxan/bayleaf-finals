@@ -11,7 +11,6 @@ const HeroSection: React.FC = () => {
   const [showInvisibleTooltip, setShowInvisibleTooltip] = useState(true);
   const [showQuoteTooltip, setShowQuoteTooltip] = useState(true);
 
-  // Hide tooltips after 5 seconds on mount
   useEffect(() => {
     if (showInvisibleTooltip) {
       const timer = setTimeout(() => setShowInvisibleTooltip(false), 5000);
@@ -32,15 +31,14 @@ const HeroSection: React.FC = () => {
       className="relative w-full"
       style={{ minHeight: '100vh', height: '100vh', backgroundColor: '#fed647' }}
     >
-      {/* Background with Rotating Plate */}
+      {/* Rotating Plate Background */}
       <div 
         ref={bgRef}
         className="absolute top-0 left-0 w-full h-full overflow-hidden z-0"
         style={{ minHeight: '100vh' }}
       >
-        {/* Rotating Plate Background - Half visible on right */}
         <div className="fixed top-1/2 right-0 -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 -right-1/2 w-[120vw] h-[120vw] sm:w-[100vw] sm:h-[100vw] flex justify-center items-center" style={{ 
+          <div className="absolute top-1/2 -right-1/2 w-[120vw] h-[120vw] xs:w-[140vw] xs:h-[140vw] sm:w-[100vw] sm:h-[100vw] flex justify-center items-center" style={{ 
             animation: 'rotate 20s linear infinite',
             transformOrigin: 'center'
           }}>
@@ -52,12 +50,12 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Thiruvalluvar Image - Absolute Left Bottom - Now clickable */}
+        {/* Thiruvalluvar Image */}
         <a
           href="https://en.wikipedia.org/wiki/Thiruvalluvar_Statue"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute bottom-0 left-0 w-48 h-48 sm:w-32 sm:h-32 md:w-64 md:h-64 lg:w-96 lg:h-96 z-20 -ml-8 md:-ml-12 lg:-ml-16 -mb-8 md:-mb-12 lg:-mb-16 group block"
+          className="absolute bottom-0 left-0 w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 md:w-64 md:h-64 lg:w-96 lg:h-96 z-20 -ml-4 xs:-ml-6 md:-ml-12 lg:-ml-16 -mb-4 xs:-mb-6 md:-mb-12 lg:-mb-16 group block"
           title="Learn more about Thiruvalluvar Statue"
         >
           <img 
@@ -65,74 +63,75 @@ const HeroSection: React.FC = () => {
             alt="Thiruvalluvar"
             className="w-full h-full object-contain cursor-pointer transition-all duration-200 group-hover:scale-105"
           />
-          {/* Tooltip visible only for 5 seconds after load */}
           {showInvisibleTooltip && (
-            <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-3 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30">
+            <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-2 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30 hidden xs:block">
               Want to learn more?
             </span>
           )}
         </a>
 
-      {/* Custom CSS for rotation animation */}
-      <style jsx>{`
-        @keyframes rotate {
-          from {
-            transform: translateY(-50%) rotate(0deg);
+        <style jsx>{`
+          @keyframes rotate {
+            from {
+              transform: translateY(-50%) rotate(0deg);
+            }
+            to {
+              transform: translateY(-50%) rotate(360deg);
+            }
           }
-          to {
-            transform: translateY(-50%) rotate(360deg);
-          }
-        }
-      `}</style>
+        `}</style>
       </div>
 
       {/* Foreground Content */}
       <div className="absolute inset-0 z-10">
-        <div className="absolute top-1/4 left-16 md:left-24 lg:left-32 text-gray-900">
-          <div className="text-gray-900 flex items-center mb-6">
-            <Utensils className="mr-2" size={20} />
-            <span className="uppercase tracking-widest text-sm">
+        <div className="absolute top-16 xs:top-20 sm:top-1/4 left-4 xs:left-6 sm:left-16 md:left-24 lg:left-32 text-gray-900 max-w-[calc(100vw-2rem)] xs:max-w-[calc(100vw-3rem)] sm:max-w-none">
+          {/* Tagline */}
+          <div className="text-gray-900 flex items-center mb-3 xs:mb-4 sm:mb-6">
+            <Utensils className="mr-1 xs:mr-2 flex-shrink-0" size={16} />
+            <span className="uppercase tracking-wide xs:tracking-widest text-xs xs:text-sm truncate">
               {translations.hero.tagline[language]}
             </span>
           </div>
 
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
+          {/* Title */}
+          <h1 className="font-display text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 xs:mb-6 sm:mb-8 leading-tight xs:leading-normal">
             {translations.hero.title[language]}
           </h1>
 
-          <p className="text-lg md:text-xl mb-10 leading-relaxed max-w-lg">
+          {/* Description */}
+          <p className="text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-8 sm:mb-10 leading-snug xs:leading-relaxed max-w-xs xs:max-w-sm sm:max-w-lg">
             {translations.hero.description[language]}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 mb-16">
+          {/* Buttons */}
+          <div className="flex flex-col xs:flex-row xs:flex-wrap items-start xs:items-center gap-2 xs:gap-4 mb-8 xs:mb-12 sm:mb-16">
             <Link
               to="menu"
               spy={true}
               smooth={true}
               offset={-80}
               duration={0}
-              className="btn-primary"
+              className="btn-primary text-sm xs:text-base py-2 px-4 xs:py-2 xs:px-6 w-full xs:w-auto text-center"
             >
               {translations.hero.exploreMenu[language]}
             </Link>
-            
             <Link
               to="contact"
               spy={true}
               smooth={true}
               offset={-80}
               duration={0}
-              className="bg-white text-spice-500 py-2 px-6 rounded-md font-medium hover:bg-opacity-90 transition-all"
+              className="bg-white text-spice-500 py-2 px-4 xs:py-2 xs:px-6 rounded-md font-medium hover:bg-opacity-90 transition-all text-sm xs:text-base w-full xs:w-auto text-center"
             >
               {translations.hero.bookTable[language]}
             </Link>
           </div>
         </div>
 
-        {/* Chef Ranveer Quote - now just the quote text as a direct link */}
-        <div className="absolute bottom-0 mb-8 lg:mb-2 left-1/2 -translate-x-1/2 flex justify-center w-full z-20 sm:mb-16 md:mb-12">
-          <div className="flex items-start justify-center w-[95vw] max-w-4xl sm:w-[80vw] sm:max-w-2xl">
-            <Quote className="text-spice-400 mr-3 flex-shrink-0 mt-1 sm:mr-2" size={24} />
+        {/* Quote Section */}
+        <div className="absolute bottom-2 xs:bottom-4 sm:bottom-8 lg:bottom-2 left-1/2 -translate-x-1/2 flex justify-center w-full z-20 px-2 xs:px-4">
+          <div className="flex items-start justify-center w-full max-w-xs xs:max-w-sm sm:max-w-2xl lg:max-w-4xl">
+            <Quote className="text-spice-400 mr-1 xs:mr-2 sm:mr-3 flex-shrink-0 mt-0.5 xs:mt-1" size={16} />
             <div className="w-full text-center relative">
               <a
                 href="https://en.wikipedia.org/wiki/Kural"
@@ -141,35 +140,34 @@ const HeroSection: React.FC = () => {
                 className="group relative inline-block"
                 title="Learn more about this quote"
               >
-                <p className="text-brown-700 font-bold italic text-lg md:text-xl mb-3 sm:text-base sm:mb-2 cursor-pointer transition-all duration-200 group-hover:text-brown-800 group-hover:scale-105">
+                <p className="text-brown-700 font-bold italic text-xs xs:text-sm sm:text-base md:text-xl mb-1 xs:mb-2 sm:mb-3 cursor-pointer transition-all duration-200 group-hover:text-brown-800 group-hover:scale-105 leading-tight xs:leading-snug">
                   {
                     (() => {
                       const words = translations.hero.quote[language].split(' ');
-                      if (words.length <= 4) return translations.hero.quote[language];
+                      const breakPoint = typeof window !== 'undefined' && window.innerWidth < 400 ? 3 : 4;
+                      if (words.length <= breakPoint) return translations.hero.quote[language];
                       return (
                         <>
-                          {words.slice(0, 4).join(' ')}<br />
-                          {words.slice(4).join(' ')}
+                          {words.slice(0, breakPoint).join(' ')}<br />
+                          {words.slice(breakPoint).join(' ')}
                         </>
                       );
                     })()
                   }
                 </p>
-                {/* Tooltip visible only for 5 seconds after load */}
                 {showQuoteTooltip && (
-                  <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-3 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30 sm:text-xs">
+                  <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-1 xs:mb-2 bg-black/90 text-yellow-300 text-xs px-2 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30 hidden xs:block">
                     Want to learn about this quote? Click here!
                   </span>
                 )}
               </a>
-              <p className="text-white/100 text-sm text-right sm:text-xs">
+              <p className="text-white/100 text-xs xs:text-sm text-right">
                 - Thiruvalluvar
               </p>
             </div>
           </div>
         </div>
       </div>
-
     </section>
   );
 };
