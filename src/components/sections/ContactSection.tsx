@@ -58,20 +58,15 @@ const ContactSection: React.FC = () => {
       id="contact" 
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Video */}
+      {/* Background Image */}
       <div 
         className="absolute top-0 left-0 w-full h-full overflow-hidden z-0"
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute w-full h-full object-cover md:object-center object-[25%] min-h-screen min-w-full"
-        >
-          <source src="https://ik.imagekit.io/jacw2jgvs/spices_contact.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <img
+          src="https://ik.imagekit.io/qcf813yjh/banna%20leaf%20food%20pictures%20(1).webp"
+          alt="Banana leaf food background"
+          className="absolute w-full h-full object-cover min-h-screen min-w-full"
+        />
         <div className="absolute inset-0 bg-gray-900/60 z-0"></div>
       </div>
       

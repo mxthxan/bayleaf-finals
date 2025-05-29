@@ -65,29 +65,40 @@ export const translations = {
   },
   about: {
     title: {
-      en: 'Our Story',
-      de: 'Unsere Geschichte'
+      en: 'Vanakkam und herzlich Willkommen!  ',
+      de: 'Vanakkam und herzlich Willkommen!  '
     },
     subtitle: {
-      en: 'Our Heritage',
+      en: 'Our Story',
       de: 'Unser Erbe'
     },
     description: {
       en: 'From the vibrant streets of Chennai to the heart of Germany, we bring authentic South Indian flavors with a passion for tradition and quality.',
       de: 'Von den lebhaften Straßen Chennais bis ins Herz Deutschlands bringen wir authentische südindische Aromen mit einer Leidenschaft für Tradition und Qualität.'
     },
+    // Added missing story section translations
+    story: {
+      title: {
+        en: 'Our Story',
+        de: 'Unsere Geschichte'
+      },
+      content: {
+        en: 'At Bay Leaf in Singen, we bring you centuries-old South Indian recipes, preserved in their authentic form yet thoughtfully presented for German palates. Every dish tells a story of tradition—from Tamil grandmothers kitchens to your table in Baden-Württemberg.  ',
+        de: 'Im Bay Leaf in Singen servieren wir Ihnen jahrhundertealte südindische Rezepte, authentisch und dennoch liebevoll für den deutschen Gaumen zubereitet. Jedes Gericht erzählt eine Geschichte der Tradition – aus der Küche tamilischer Großmütter bis auf Ihren Tisch in Baden-Württemberg.'
+      }
+    },
     legacy: {
       title: {
-        en: 'A Legacy of Flavor & Tradition',
-        de: 'Ein Vermächtnis von Geschmack & Tradition'
+        en: 'True to Tradition, Respectful of Your Tastes',
+        de: 'Der Tradition treu, Ihren Geschmack respektierend'
       },
       story: {
-        en: 'Our journey began in the bustling streets of Chennai, where our founder Chef Rajan learned the art of South Indian cuisine from his grandmother. Every morning, they would visit the local spice markets, selecting the finest ingredients for their family restaurant.',
-        de: 'Unsere Reise begann in den geschäftigen Straßen von Chennai, wo unser Gründer Chef Rajan von seiner Großmutter die Kunst der südindischen Küche erlernte. Jeden Morgen besuchten sie die lokalen Gewürzmärkte und wählten die feinsten Zutaten für ihr Familienrestaurant aus.'
+        en: 'We honor authentic South Indian hospitality while ensuring an experience that resonates with German expectations. Our restaurant concept draws from Tamil family traditions, where warmth and genuine care were perfected over generations in the welcoming homes of South India.We carefully preserve these time-honored hospitality values—from the unhurried pace of traditional Tamil dining to the meticulous attention to detail that defines South Indian service culture. Yet we thoughtfully present this authentic atmosphere with German comfort preferences in mind, creating spaces that feel both exotic and familiar while maintaining the soul of genuine Tamil hospitality.',
+        de: 'Wir würdigen authentische südindische Gastfreundschaft und sorgen gleichzeitig für ein Erlebnis, das deutschen Erwartungen entspricht. Unser Restaurantkonzept schöpft aus tamilischen Familientraditionen, in denen Herzlichkeit und aufrichtige Fürsorge über Generationen hinweg in den einladenden Häusern Südindiens perfektioniert wurden. Wir bewahren diese althergebrachten Werte der Gastfreundschaft sorgfältig – vom gemütlichen Tempo traditioneller tamilischer Küche bis hin zur akribischen Liebe zum Detail, die die südindische Servicekultur ausmacht. Gleichzeitig schaffen wir diese authentische Atmosphäre mit Blick auf deutsche Komfortvorlieben und schaffen Räume, die sich sowohl exotisch als auch vertraut anfühlen und gleichzeitig den Geist echter tamilischer Gastfreundschaft bewahren.'
       },
       continuation: {
-        en: 'Today, we continue this tradition in Germany, importing our spices directly from trusted farmers in South India. Our dishes are a testament to the rich culinary heritage of South India, prepared with authentic recipes that have been perfected over generations.',
-        de: 'Heute führen wir diese Tradition in Deutschland fort und importieren unsere Gewürze direkt von vertrauenswürdigen Bauern in Südindien. Unsere Gerichte sind ein Zeugnis des reichen kulinarischen Erbes Südindiens, zubereitet mit authentischen Rezepten, die über Generationen perfektioniert wurden.'
+        en: 'This approach creates a cultural bridge between traditions, where South Indian warmth meets German appreciation for quality and craftsmanship. Our restaurant ambiance offers the same cozy intimacy that Germans cherish in their traditional Gaststuben, while our service style reflects the genuine care found in Tamil family homes. ',
+        de: 'Dieser Ansatz schlägt eine kulturelle Brücke zwischen Traditionen, wo südindische Wärme auf deutsche Wertschätzung für Qualität und Handwerkskunst trifft. Unser Restaurantambiente bietet die gleiche gemütliche Atmosphäre, die Deutsche in ihren traditionellen Gaststuben schätzen, während unser Servicestil die echte Fürsorge tamilischer Familien widerspiegelt.'
       }
     },
     features: {
@@ -156,6 +167,17 @@ export const translations = {
           de: 'Monatlich'
         }
       }
+    },
+    // Added missing quote section translations
+    quote: {
+      text: {
+        en: 'யாதும் ஊரே, யாவரும் கேளிர் எல்லா ஊரும் நம் ஊர்தான், எல்லோரும் நம் உறவுகள் தான்;',
+        de: 'Jede Stadt ist unsere Stadt, jeder ist unser Verwandter.'
+      },
+      author: {
+        en: 'Thiruvalluvar',
+        de: 'Thiruvalluvar'
+      },
     },
     cta: {
       en: 'Discover Our Menu',

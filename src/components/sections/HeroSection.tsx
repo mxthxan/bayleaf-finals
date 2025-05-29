@@ -11,7 +11,7 @@ const HeroSection: React.FC = () => {
   const [showInvisibleTooltip, setShowInvisibleTooltip] = useState(true);
   const [showQuoteTooltip, setShowQuoteTooltip] = useState(true);
 
-  // Hide tooltips after 10 seconds on mount
+  // Hide tooltips after 5 seconds on mount
   useEffect(() => {
     if (showInvisibleTooltip) {
       const timer = setTimeout(() => setShowInvisibleTooltip(false), 5000);
@@ -29,24 +29,61 @@ const HeroSection: React.FC = () => {
   return (
     <section 
       id="home" 
-      className="relative min-h-screen w-full"
+      className="relative w-full"
+      style={{ minHeight: '100vh', height: '100vh', backgroundColor: '#fed647' }}
     >
-      {/* Background Video - No overlay or dulling */}
+      {/* Background with Rotating Plate */}
       <div 
         ref={bgRef}
         className="absolute top-0 left-0 w-full h-full overflow-hidden z-0"
+        style={{ minHeight: '100vh' }}
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute w-full h-full object-cover object-right md:object-center min-h-screen min-w-full"
+        {/* Rotating Plate Background - Half Visible on Right */}
+        <div className="fixed top-1/2 right-0 -translate-y-1/2 w-[150vw] sm:w-[130vw] md:w-[110vw] lg:w-[90vw] h-screen overflow-hidden pointer-events-none">
+          <div className="absolute top-1/2 -right-[75%] sm:-right-[65%] md:-right-[55%] lg:-right-[45%] w-[200vw] h-[200vw] sm:w-[180vw] sm:h-[180vw] md:w-[150vw] md:h-[150vw] lg:w-[120vw] lg:h-[120vw] flex justify-center items-center" style={{ 
+            animation: 'rotate 20s linear infinite',
+            transformOrigin: 'center'
+          }}>
+            <img 
+              src="https://ik.imagekit.io/jacw2jgvs/Untitled%20design.svg" 
+              alt="Rotating plate background"
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+
+        {/* Thiruvalluvar Image - Absolute Left Bottom - Now clickable */}
+        <a
+          href="https://en.wikipedia.org/wiki/Thiruvalluvar_Statue"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-0 left-0 w-48 h-48 sm:w-32 sm:h-32 md:w-64 md:h-64 lg:w-96 lg:h-96 z-20 -ml-8 md:-ml-12 lg:-ml-16 -mb-8 md:-mb-12 lg:-mb-16 group block"
+          title="Learn more about Thiruvalluvar Statue"
         >
-          <source src="https://ik.imagekit.io/jacw2jgvs/desktop.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        {/* ⛔️ Removed the black overlay */}
+          <img 
+            src="https://ik.imagekit.io/jacw2jgvs/thiruvalluvar%20wo%20bg%20final.png" 
+            alt="Thiruvalluvar"
+            className="w-full h-full object-contain cursor-pointer transition-all duration-200 group-hover:scale-105"
+          />
+          {/* Tooltip visible only for 5 seconds after load */}
+          {showInvisibleTooltip && (
+            <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-3 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30">
+              Want to learn more?
+            </span>
+          )}
+        </a>
+
+      {/* Custom CSS for rotation animation */}
+      <style jsx>{`
+        @keyframes rotate {
+          from {
+            transform: translateY(-50%) rotate(0deg);
+          }
+          to {
+            transform: translateY(-50%) rotate(360deg);
+          }
+        }
+      `}</style>
       </div>
 
       {/* Foreground Content */}
@@ -92,73 +129,47 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Chef Ranveer Quote moved to absolute bottom center, no bg blur */}
-        <div className="absolute bottom-0 mb-2 left-1/2 -translate-x-1/2 flex justify-center w-full z-20">
-          <a
-            href="https://en.wikipedia.org/wiki/Kural"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group"
-            title="Learn more about this quote"
-          >
-            <div 
-              ref={quoteRef}
-              className="p-4 rounded-lg border-2 border-white/60 shadow-lg w-[95vw] max-w-4xl bg-transparent transition-all duration-200 group-hover:scale-105 group-hover:bg-black/30 cursor-pointer flex justify-center relative"
-            >
-              <div className="flex items-start justify-center w-full">
-                <Quote className="text-spice-400 mr-3 flex-shrink-0 mt-1" size={28} />
-                <div className="w-full text-center">
-                  <p className="text-brown-700 font-bold italic text-lg md:text-xl mb-3">
-                    {
-                      (() => {
-                        const words = translations.hero.quote[language].split(' ');
-                        if (words.length <= 4) return translations.hero.quote[language];
-                        return (
-                          <>
-                            {words.slice(0, 4).join(' ')}<br />
-                            {words.slice(4).join(' ')}
-                          </>
-                        );
-                      })()
-                    }
-                  </p>
-                  <p className="text-white/100 text-sm text-right">
-                    - Thiruvalluvar
-                  </p>
-                  {/* Tooltip visible only for 10 seconds after load */}
-                  {showQuoteTooltip && (
-                    <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-3 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30">
-                      Want to learn about this quote? Click here!
-                    </span>
-                  )}
-                </div>
-              </div>
+        {/* Chef Ranveer Quote - now just the quote text as a direct link */}
+        <div className="absolute bottom-0 mb-8 lg:mb-2 left-1/2 -translate-x-1/2 flex justify-center w-full z-20 sm:mb-16 md:mb-12">
+          <div className="flex items-start justify-center w-[95vw] max-w-4xl sm:w-[80vw] sm:max-w-2xl">
+            <Quote className="text-spice-400 mr-3 flex-shrink-0 mt-1 sm:mr-2" size={24} />
+            <div className="w-full text-center relative">
+              <a
+                href="https://en.wikipedia.org/wiki/Kural"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-block"
+                title="Learn more about this quote"
+              >
+                <p className="text-brown-700 font-bold italic text-lg md:text-xl mb-3 sm:text-base sm:mb-2 cursor-pointer transition-all duration-200 group-hover:text-brown-800 group-hover:scale-105">
+                  {
+                    (() => {
+                      const words = translations.hero.quote[language].split(' ');
+                      if (words.length <= 4) return translations.hero.quote[language];
+                      return (
+                        <>
+                          {words.slice(0, 4).join(' ')}<br />
+                          {words.slice(4).join(' ')}
+                        </>
+                      );
+                    })()
+                  }
+                </p>
+                {/* Tooltip visible only for 5 seconds after load */}
+                {showQuoteTooltip && (
+                  <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-3 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30 sm:text-xs">
+                    Want to learn about this quote? Click here!
+                  </span>
+                )}
+              </a>
+              <p className="text-white/100 text-sm text-right sm:text-xs">
+                - Thiruvalluvar
+              </p>
             </div>
-          </a>
+          </div>
         </div>
       </div>
 
-      {/* Scroll Down Indicator */}
-      {/* Invisible button as a colored point, moved slightly to the right */}
-      <div className="absolute bottom-5 left-8 md:left-16 lg:left-24 z-30 flex flex-col items-start w-max">
-        <a
-          href="https://en.wikipedia.org/wiki/Thiruvalluvar_Statue"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative group block w-8 h-8"
-          tabIndex={-1}
-          aria-label="Learn more about Thiruvalluvar Statue"
-        >
-          {/* Colored circular point */}
-          <span className="absolute inset-0 w-6 h-6 m-auto rounded-full bg-yellow-800 shadow-lg cursor-pointer"></span>
-          {/* Tooltip visible only for 10 seconds after load */}
-          {showInvisibleTooltip && (
-            <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-3 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30">
-              Want to learn more?
-            </span>
-          )}
-        </a>
-      </div>
     </section>
   );
 };

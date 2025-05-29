@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
-import { BookOpen, ChevronDown } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { translations } from '../../context/translations';
 
@@ -10,11 +10,49 @@ const AboutSection: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { language } = useLanguage();
   
-  const stats = [
-    { ...translations.about.stats.experience, color: 'spice' },
-    { ...translations.about.stats.recipes, color: 'leaf' },
-    { ...translations.about.stats.customers, color: 'chili' }
+  // Image slider state
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [
+    {
+      src: "https://ik.imageKit.io/jacw2jgvs/la43-listing.jpg?updatedAt=1747316422127",
+      alt: "Restaurant interior"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&h=600&fit=crop",
+      alt: "Traditional South Indian dishes"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=800&h=600&fit=crop",
+      alt: "Chef preparing food"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop",
+      alt: "Spices and ingredients"
+    }
   ];
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
 
   const features = [
     {
@@ -90,19 +128,19 @@ const AboutSection: React.FC = () => {
               className="bg-white/80 rounded-xl shadow-lg p-8 mb-8"
             >
               <h3 className="font-display text-2xl md:text-3xl mb-4 text-gray-900 font-bold">
-                Our Story
+                {translations.about.story.title[language]}
               </h3>
               <p className="text-gray-700 mb-6 leading-relaxed">
-                From the vibrant streets of Chennai to the heart of Germany, we bring authentic South Indian flavors with a passion for tradition and quality.
+                {translations.about.story.content[language]}
               </p>
               <h4 className="font-display text-xl md:text-2xl mb-2 text-gray-800 font-semibold">
-                A Legacy of Flavor & Tradition
+                {translations.about.legacy.title[language]}
               </h4>
               <p className="text-gray-700 mb-4 leading-relaxed">
-                Our journey began in the bustling streets of Chennai, where our founder Chef Rajan learned the art of South Indian cuisine from his grandmother. Every morning, they would visit the local spice markets, selecting the finest ingredients for their family restaurant.
+                {translations.about.legacy.story[language]}
               </p>
               <p className="text-gray-700 leading-relaxed">
-                Today, we continue this tradition in Germany, importing our spices directly from trusted farmers in South India. Our dishes are a testament to the rich culinary heritage of South India, prepared with authentic recipes that have been perfected over generations.
+                {translations.about.legacy.continuation[language]}
               </p>
             </motion.div>
             {/* Stats */}
@@ -115,10 +153,10 @@ const AboutSection: React.FC = () => {
                 className="flex flex-col items-center bg-white/80 rounded-lg p-6 shadow"
               >
                 <div className="w-16 h-16 rounded-full bg-spice-100 flex items-center justify-center text-spice-600 mb-2 text-2xl font-bold">
-                  15+
+                  {translations.about.stats.experience.number}+
                 </div>
-                <h4 className="font-medium text-gray-900">Years of Experience</h4>
-                <p className="text-sm text-gray-500">Since 2010</p>
+                <h4 className="font-medium text-gray-900">{translations.about.stats.experience.label[language]}</h4>
+                <p className="text-sm text-gray-500">{translations.about.stats.experience.subtext[language]}</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -128,10 +166,10 @@ const AboutSection: React.FC = () => {
                 className="flex flex-col items-center bg-white/80 rounded-lg p-6 shadow"
               >
                 <div className="w-16 h-16 rounded-full bg-leaf-100 flex items-center justify-center text-leaf-600 mb-2 text-2xl font-bold">
-                  50+
+                  {translations.about.stats.recipes.number}+
                 </div>
-                <h4 className="font-medium text-gray-900">Authentic Recipes</h4>
-                <p className="text-sm text-gray-500">Traditional dishes</p>
+                <h4 className="font-medium text-gray-900">{translations.about.stats.recipes.label[language]}</h4>
+                <p className="text-sm text-gray-500">{translations.about.stats.recipes.subtext[language]}</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -141,27 +179,68 @@ const AboutSection: React.FC = () => {
                 className="flex flex-col items-center bg-white/80 rounded-lg p-6 shadow"
               >
                 <div className="w-16 h-16 rounded-full bg-chili-100 flex items-center justify-center text-chili-600 mb-2 text-2xl font-bold">
-                  1000+
+                  {translations.about.stats.customers.number}+
                 </div>
-                <h4 className="font-medium text-gray-900">Happy Customers</h4>
-                <p className="text-sm text-gray-500">Monthly</p>
+                <h4 className="font-medium text-gray-900">{translations.about.stats.customers.label[language]}</h4>
+                <p className="text-sm text-gray-500">{translations.about.stats.customers.subtext[language]}</p>
               </motion.div>
             </div>
           </motion.div>
           
-          {/* Right column: Replace 3D/canvas with image */}
+          {/* Right column: Image Slider */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="h-[600px] rounded-lg overflow-hidden shadow-xl flex items-center justify-center bg-white/0"
+            className="h-[600px] rounded-lg overflow-hidden shadow-xl relative group"
           >
-            <img
-              src="https://ik.imagekit.io/jacw2jgvs/la43-listing.jpg?updatedAt=1747316422127"
-              alt="About us"
-              className="object-cover w-full h-full"
-            />
+            {/* Image Container */}
+            <div className="relative w-full h-full">
+              {images.map((image, index) => (
+                <motion.img
+                  key={index}
+                  src={image.src}
+                  alt={image.alt}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ 
+                    opacity: index === currentImageIndex ? 1 : 0,
+                    scale: index === currentImageIndex ? 1 : 1.1
+                  }}
+                  transition={{ duration: 0.7, ease: "easeInOut" }}
+                />
+              ))}
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevImage}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <ChevronRight size={24} />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentImageIndex 
+                      ? 'bg-white scale-110' 
+                      : 'bg-white/60 hover:bg-white/80'
+                  }`}
+                />
+              ))}
+            </div>
           </motion.div>
         </div>
         
@@ -194,6 +273,32 @@ const AboutSection: React.FC = () => {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </motion.div>
+
+        {/* Quote Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center mb-16 max-w-4xl mx-auto"
+        >
+          <div className="bg-white/90 rounded-2xl shadow-lg p-8 md:p-12 relative">
+            {/* Quote marks */}
+            <div className="text-6xl text-spice-300 absolute top-4 left-6 font-serif">"</div>
+            <div className="text-6xl text-spice-300 absolute bottom-4 right-6 font-serif">"</div>
+            
+            <blockquote className="relative z-10">
+              <p className="text-xl md:text-2xl lg:text-3xl font-light text-gray-800 mb-6 leading-relaxed italic">
+                {translations.about.quote.text[language]}
+              </p>
+              <footer className="flex flex-col items-center">
+                <cite className="text-lg md:text-xl font-semibold text-spice-600 not-italic">
+                  {translations.about.quote.author[language]}
+                </cite>
+              </footer>
+            </blockquote>
           </div>
         </motion.div>
       </div>
