@@ -31,17 +31,15 @@ const HeroSection: React.FC = () => {
       className="relative w-full"
       style={{ minHeight: '100vh', height: '100vh', backgroundColor: '#fed647' }}
     >
-      {/* Rotating Plate Background */}
+      {/* Rotating Plate Background - Bound to Hero Section */}
       <div 
         ref={bgRef}
         className="absolute top-0 left-0 w-full h-full overflow-hidden z-0"
         style={{ minHeight: '100vh' }}
       >
-        <div className="fixed top-1/2 right-0 -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 -right-1/2 w-[120vw] h-[120vw] xs:w-[140vw] xs:h-[140vw] sm:w-[100vw] sm:h-[100vw] flex justify-center items-center" style={{ 
-            animation: 'rotate 20s linear infinite',
-            transformOrigin: 'center'
-          }}>
+        {/* Changed from 'fixed' to 'absolute' to bind it to the hero section */}
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
+          <div className="absolute top-1/2 -right-1/2 w-[120vw] h-[120vw] xs:w-[140vw] xs:h-[140vw] sm:w-[100vw] sm:h-[100vw] flex justify-center items-center hero-rotate">
             <img 
               src="https://ik.imagekit.io/jacw2jgvs/Untitled%20design.png" 
               alt="Rotating plate background"
@@ -70,8 +68,14 @@ const HeroSection: React.FC = () => {
           )}
         </a>
 
+        {/* Hero-specific animation styles */}
         <style jsx>{`
-          @keyframes rotate {
+          .hero-rotate {
+            animation: heroRotate 20s linear infinite;
+            transform-origin: center;
+          }
+          
+          @keyframes heroRotate {
             from {
               transform: translateY(-50%) rotate(0deg);
             }
@@ -104,14 +108,14 @@ const HeroSection: React.FC = () => {
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-col xs:flex-row xs:flex-wrap items-start xs:items-center gap-2 xs:gap-4 mb-8 xs:mb-12 sm:mb-16">
+          <div className="flex flex-row flex-wrap items-start justify-start gap-2 xs:gap-4 mb-8 xs:mb-12 sm:mb-16">
             <Link
               to="menu"
               spy={true}
               smooth={true}
               offset={-80}
               duration={0}
-              className="btn-primary text-sm xs:text-base py-2 px-4 xs:py-2 xs:px-6 w-full xs:w-auto text-center"
+              className="btn-primary text-xs xs:text-sm py-1 px-2 xs:py-1 xs:px-3 max-w-fit text-center"
             >
               {translations.hero.exploreMenu[language]}
             </Link>
@@ -121,7 +125,7 @@ const HeroSection: React.FC = () => {
               smooth={true}
               offset={-80}
               duration={0}
-              className="bg-white text-spice-500 py-2 px-4 xs:py-2 xs:px-6 rounded-md font-medium hover:bg-opacity-90 transition-all text-sm xs:text-base w-full xs:w-auto text-center"
+              className="bg-white text-spice-500 py-1 px-2 xs:py-1 xs:px-3 rounded-md font-medium hover:bg-opacity-90 transition-all text-xs xs:text-sm max-w-fit text-center"
             >
               {translations.hero.bookTable[language]}
             </Link>
@@ -140,7 +144,8 @@ const HeroSection: React.FC = () => {
                 className="group relative inline-block"
                 title="Learn more about this quote"
               >
-                <p className="text-brown-700 font-bold italic text-xs xs:text-sm sm:text-base md:text-xl mb-1 xs:mb-2 sm:mb-3 cursor-pointer transition-all duration-200 group-hover:text-brown-800 group-hover:scale-105 leading-tight xs:leading-snug">
+                {/* Updated quote with desktop bold styling */}
+                <p className="text-brown-700 font-bold italic text-xs xs:text-sm sm:text-base md:text-xl sm:font-bold md:font-bold lg:font-bold mb-1 xs:mb-2 sm:mb-3 cursor-pointer transition-all duration-200 group-hover:text-brown-800 group-hover:scale-105 leading-tight xs:leading-snug">
                   {
                     (() => {
                       const words = translations.hero.quote[language].split(' ');
