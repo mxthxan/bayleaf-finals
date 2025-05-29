@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
-import { ArrowDown, Utensils, Quote } from 'lucide-react';
+import { ArrowDown, Utensils } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { translations } from '../../context/translations';
 
@@ -8,15 +8,15 @@ const HeroSection: React.FC = () => {
   const bgRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
   const { language } = useLanguage();
-  const [showInvisibleTooltip, setShowInvisibleTooltip] = useState(true);
+  const [showThiruvalluvarTooltip, setShowThiruvalluvarTooltip] = useState(true);
   const [showQuoteTooltip, setShowQuoteTooltip] = useState(true);
 
   useEffect(() => {
-    if (showInvisibleTooltip) {
-      const timer = setTimeout(() => setShowInvisibleTooltip(false), 5000);
+    if (showThiruvalluvarTooltip) {
+      const timer = setTimeout(() => setShowThiruvalluvarTooltip(false), 5000);
       return () => clearTimeout(timer);
     }
-  }, [showInvisibleTooltip]);
+  }, [showThiruvalluvarTooltip]);
 
   useEffect(() => {
     if (showQuoteTooltip) {
@@ -38,8 +38,8 @@ const HeroSection: React.FC = () => {
         style={{ minHeight: '100vh' }}
       >
         {/* Changed from 'fixed' to 'absolute' to bind it to the hero section */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 -right-1/2 w-[120vw] h-[120vw] xs:w-[140vw] xs:h-[140vw] sm:w-[100vw] sm:h-[100vw] flex justify-center items-center hero-rotate">
+        <div className="absolute top-1/2 right-[-20px] -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
+          <div className="absolute top-1/2 -right-1/8 w-[160vw] h-[160vw] xs:w-[180vw] xs:h-[180vw] sm:w-[140vw] sm:h-[140vw] flex justify-center items-center hero-rotate">
             <img 
               src="https://ik.imagekit.io/jacw2jgvs/Untitled%20design.png" 
               alt="Rotating plate background"
@@ -48,25 +48,7 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Thiruvalluvar Image */}
-        <a
-          href="https://en.wikipedia.org/wiki/Thiruvalluvar_Statue"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute bottom-0 left-0 w-24 h-24 xs:w-28 xs:h-28 sm:w-32 sm:h-32 md:w-64 md:h-64 lg:w-96 lg:h-96 z-20 -ml-4 xs:-ml-6 md:-ml-12 lg:-ml-16 -mb-4 xs:-mb-6 md:-mb-12 lg:-mb-16 group block"
-          title="Learn more about Thiruvalluvar Statue"
-        >
-          <img 
-            src="https://ik.imagekit.io/jacw2jgvs/thiruvalluvar%20wo%20bg%20final.png" 
-            alt="Thiruvalluvar"
-            className="w-full h-full object-contain cursor-pointer transition-all duration-200 group-hover:scale-105"
-          />
-          {showInvisibleTooltip && (
-            <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-2 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30 hidden xs:block">
-              Want to learn more?
-            </span>
-          )}
-        </a>
+
 
         {/* Hero-specific animation styles */}
         <style jsx>{`
@@ -86,24 +68,44 @@ const HeroSection: React.FC = () => {
         `}</style>
       </div>
 
-      {/* Foreground Content */}
+      {/* Thiruvalluvar Image - Moved outside background container for clickability */}
+      <a
+        href="https://en.wikipedia.org/wiki/Thiruvalluvar"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-0 left-0 w-48 h-48 xs:w-52 xs:h-52 sm:w-32 sm:h-32 md:w-64 md:h-64 lg:w-96 lg:h-96 z-30 -ml-16 xs:-ml-20 sm:-ml-12 md:-ml-12 lg:-ml-16 -mb-4 xs:-mb-6 md:-mb-12 lg:-mb-16 group block"
+        title="Learn more about Thiruvalluvar"
+      >
+        <img 
+          src="https://ik.imagekit.io/jacw2jgvs/thiruvalluvar%20wo%20bg%20final.png" 
+          alt="Thiruvalluvar"
+          className="w-full h-full object-contain cursor-pointer transition-all duration-200 group-hover:scale-105"
+        />
+        {showThiruvalluvarTooltip && (
+          <span className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-full mb-2 bg-black/90 text-yellow-300 text-xs px-2 py-1 rounded opacity-100 transition-opacity whitespace-nowrap z-30 hidden xs:block">
+            Want to learn more? Click here!
+          </span>
+        )}
+      </a>
+
+      {/* Foreground Content - Moved to center on mobile */}
       <div className="absolute inset-0 z-10">
-        <div className="absolute top-16 xs:top-20 sm:top-1/4 left-4 xs:left-6 sm:left-16 md:left-24 lg:left-32 text-gray-900 max-w-[calc(100vw-2rem)] xs:max-w-[calc(100vw-3rem)] sm:max-w-none">
+        <div className="absolute top-1/2 -translate-y-1/2 sm:top-1/4 sm:translate-y-0 left-4 xs:left-6 sm:left-16 md:left-24 lg:left-32 text-gray-900 max-w-[calc(100vw-2rem)] xs:max-w-[calc(100vw-3rem)] sm:max-w-none">
           {/* Tagline */}
           <div className="text-gray-900 flex items-center mb-3 xs:mb-4 sm:mb-6">
             <Utensils className="mr-1 xs:mr-2 flex-shrink-0" size={16} />
-            <span className="uppercase tracking-wide xs:tracking-widest text-xs xs:text-sm truncate">
+            <span className="uppercase tracking-wide xs:tracking-widest text-xs xs:text-sm font-bold truncate">
               {translations.hero.tagline[language]}
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="font-display text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 xs:mb-6 sm:mb-8 leading-tight xs:leading-normal">
+          <h1 className="font-display text-white text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-white mb-4 xs:mb-6 sm:mb-8 leading-tight xs:leading-normal text-shadow-lg">
             {translations.hero.title[language]}
           </h1>
 
           {/* Description */}
-          <p className="text-sm xs:text-base sm:text-lg md:text-xl mb-6 xs:mb-8 sm:mb-10 leading-snug xs:leading-relaxed max-w-xs xs:max-w-sm sm:max-w-lg">
+          <p className="text-sm xs:text-base text-white md:text-xl mb-6 xs:mb-8 sm:mb-10 leading-snug xs:leading-relaxed max-w-xs xs:max-w-sm sm:max-w-lg font-semibold">
             {translations.hero.description[language]}
           </p>
 
@@ -132,10 +134,9 @@ const HeroSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Quote Section */}
+        {/* Quote Section - Removed Quote icon */}
         <div className="absolute bottom-2 xs:bottom-4 sm:bottom-8 lg:bottom-2 left-1/2 -translate-x-1/2 flex justify-center w-full z-20 px-2 xs:px-4">
           <div className="flex items-start justify-center w-full max-w-xs xs:max-w-sm sm:max-w-2xl lg:max-w-4xl">
-            <Quote className="text-spice-400 mr-1 xs:mr-2 sm:mr-3 flex-shrink-0 mt-0.5 xs:mt-1" size={16} />
             <div className="w-full text-center relative">
               <a
                 href="https://en.wikipedia.org/wiki/Kural"
