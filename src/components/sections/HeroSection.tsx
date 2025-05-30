@@ -41,7 +41,7 @@ const HeroSection: React.FC = () => {
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
           <div className="absolute top-1/2 -right-1/2 w-[120vw] h-[120vw] xs:w-[140vw] xs:h-[140vw] sm:w-[100vw] sm:h-[100vw] flex justify-center items-center hero-rotate">
             <img 
-              src="src\assests\Untitled design.svg" 
+              src="src\assests\platered.svg" 
               className="w-full h-full object-contain"
             />
           </div>
