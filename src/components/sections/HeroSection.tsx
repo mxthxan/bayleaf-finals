@@ -10,6 +10,8 @@ const HeroSection: React.FC = () => {
   const { language } = useLanguage();
   const [showThiruvalluvarTooltip, setShowThiruvalluvarTooltip] = useState(true);
   const [showQuoteTooltip, setShowQuoteTooltip] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     if (showThiruvalluvarTooltip) {
@@ -25,6 +27,17 @@ const HeroSection: React.FC = () => {
     }
   }, [showQuoteTooltip]);
 
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+    setImageError(false);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(false);
+    console.error('Failed to load rotating plate image');
+  };
+
   return (
     <section 
       id="home" 
@@ -39,21 +52,31 @@ const HeroSection: React.FC = () => {
       >
         {/* Changed from 'fixed' to 'absolute' to bind it to the hero section */}
         <div className="absolute top-1/2 right-[-20px] -translate-y-1/2 w-[100vw] h-screen overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 -right-[300px] w-[70vw] h-[70vw] xs:w-[600vw] xs:h-[600vw] sm:w-[140vw] sm:h-[140vw] md:w-[100vw] md:h-[100vw] lg:w-[80vw] lg:h-[80vw] xl:w-[60vw] xl:h-[60vw] flex justify-center items-center hero-rotate">
-
-
+          <div 
+            className={`absolute top-1/2 -right-[300px] w-[70vw] h-[70vw] xs:w-[600vw] xs:h-[600vw] sm:w-[140vw] sm:h-[140vw] md:w-[100vw] md:h-[100vw] lg:w-[80vw] lg:h-[80vw] xl:w-[60vw] xl:h-[60vw] flex justify-center items-center ${imageLoaded && !imageError ? 'hero-rotate' : ''}`}
+          >
             <img 
               src="https://ik.imagekit.io/jacw2jgvs/Untitled%20design.png" 
               alt="Rotating plate background"
               className="w-full h-full object-contain"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              loading="eager"
+              crossOrigin="anonymous"
             />
+            {/* Fallback content if image fails */}
+            {imageError && (
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-64 h-64 bg-orange-200 rounded-full border-4 border-orange-400 hero-rotate flex items-center justify-center">
+                  <Utensils size={48} className="text-orange-600" />
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-
-
         {/* Hero-specific animation styles */}
-        <style jsx>{`
+        <style>{`
           .hero-rotate {
             animation: heroRotate 20s linear infinite;
             transform-origin: center;
